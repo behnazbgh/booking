@@ -1,10 +1,10 @@
-### Room Booking
+# Room Booking
 
 This is a simple room booking application based on Java, Hibernate and Spring Boot Framework with MVC design pattern. It uses Hibernate to persist the data to MySql.
 
 ## Modules
 
-# Model
+### Model
 
 This module mapped to the underlying table in the database.There are 3 classes under this package : `user`, `role`, `rooms`. The classes are annotated with `@Entity`.
 
@@ -31,7 +31,7 @@ public class Role {
  }
 }
 ```
-# Repository
+### Repository
 
  This module is responsible for the crud operations and connects with DB through provided interfaces from JPA. Each class need to extends `JpaRepository`. The class is annotated with `@Repository`.
 
@@ -42,7 +42,7 @@ public interface RoleRepository extends JpaRepository<Role, Integer> {
  Role findByRole(String role);
 }
 ```
-# Service and Service Impl Layer
+### Service and Service Impl Layer
 
 This module is responsible to provide a set of methods with its implementation which uses repository to interact with the database.
 
@@ -62,7 +62,7 @@ public class RoomsServiceImpl implements RoomsService {
  }
 ```
 
-# Controller
+### Controller
 
 Business logic happens in controllers. Requests from user comes to `@RequestMapping`. Through injecting the services, the data is retrieved from DB and with `ModelAndView`class, the view is set and the data added as an object. 
 
