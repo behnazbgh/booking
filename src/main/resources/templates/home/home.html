@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+ xmlns:th="http://www.thymeleaf.org">
+<head>
+ <title>E Booking System</title>
+ <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Karma">
+ <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+ <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+ <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.min.css">
+</head>
+<style>
+body,h1,h2,h3,h4,h5,h6 {font-family: "Karma", sans-serif}
+.w3-bar-block .w3-bar-item {padding:20px}
+</style>
+<body>
+
+<!-- Top menu -->
+<div class="w3-top">
+  <div class="w3-white w3-xlarge" style="max-width:900px;margin:auto">
+    <div class="w3-center w3-padding-16" style="background-color:#007bff;color:white;width:100%">E Booking System</div>
+    <div class="w3-center w3-padding-16">Rooms Listing</div>
+  </div>
+</div>
+
+<div class="w3-main w3-content w3-padding" style="max-width:1200px;margin-top:100px">
+ <div class="container">
+ <span>         </span>
+  <div class="w3-right"><a th:href="@{/logout}" >Sign out</a></div>
+  
+<div th:if="${not #lists.isEmpty(Rooms)}">
+    <hr>
+    
+    
+    <table class="table table-striped">
+        <tr>
+            <th>Room Id</th>
+            <th>Room Type</th>
+            <th>Book/CheckOut</th>
+        </tr>
+        <tr th:each="room : ${Rooms}">
+        
+        
+            <td th:text="${room.id}"></td>
+            <td th:text="${room.roomtype}"></td>
+          
+             <td th:if="${room.availability} == false">
+              <form action="#" th:action="@{/home/book}" th:object="${rooms}" method="post">
+         	 <p><input type="text" hidden th:value="${room.id}" name="id" /></p>
+		     <p><input type="text" hidden th:value="${room.roomtype}" name="roomtype" /></p>
+             <p><input type="text" hidden th:value="${room.availability}" name="availability" /></p>
+             <p><input type="submit" class="btn btn-success" value="Book" /></p>	
+            </form>
+           </td>
+           
+           <td th:if="${room.availability} == true">
+          <form action="#" th:action="@{/home/checkout}" th:object="${rooms}" method="post">
+         	 <p><input type="text" hidden th:value="${room.id}" name="id" /></p>
+		     <p><input type="text" hidden th:value="${room.roomtype}" name="roomtype" /></p>
+             <p><input type="text" hidden th:value="${room.availability}" name="availability" /></p>
+             <p><input type="submit" class="btn btn-warning" value="Checkout" /></p>	
+            </form>
+           </td>
+            
+            
+        </tr>
+    </table>
+    
+    <h4> <span th:utext="${availCount}"></span> rooms available out of total  <span th:utext="${roomCount}"></span> rooms</h4>
+</div>
+ </div>
+ </div>
+</body>
+</html>
